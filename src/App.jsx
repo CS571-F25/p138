@@ -4,6 +4,7 @@ export default function App() {
   const [habitat, setHabitat] = useState("");
   const [category, setCategory] = useState("");
   const [selectedFoods, setSelectedFoods] = useState([]);
+  const [puppyIndex, setPuppyIndex] = useState(0); // for mochiball/riceball carousel
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -13,10 +14,22 @@ export default function App() {
     document.head.appendChild(link);
   }, []);
 
+  const handleNext = () => setPuppyIndex(prev => (prev + 1) % 2);
+  const handlePrev = () => setPuppyIndex(prev => (prev - 1 + 2) % 2);
+
   const animals = [
     {
+      name: "pomeranian",
+      category: ["pet", "mammal"], // multiple categories
+      habitat: "home",
+      diet: ["meat", "plants"],
+      size: "tiny",
+      images: ["/p138/mochiball.jpg", "/p138/riceball.jpg"],
+      objectPosition: "center 10%" // show more top (move image up)
+    },
+    {
       name: "tiger",
-      category: "mammal",
+      category: ["mammal"],
       habitat: "jungle",
       diet: ["meat"],
       size: "large",
@@ -25,7 +38,7 @@ export default function App() {
     },
     {
       name: "penguin",
-      category: "bird",
+      category: ["bird"],
       habitat: "polar",
       diet: ["fish"],
       size: "medium",
@@ -34,7 +47,7 @@ export default function App() {
     },
     {
       name: "wolf",
-      category: "mammal",
+      category: ["mammal"],
       habitat: "forest",
       diet: ["meat"],
       size: "large",
@@ -43,7 +56,7 @@ export default function App() {
     },
     {
       name: "frog",
-      category: "amphibian",
+      category: ["amphibian"],
       habitat: "jungle",
       diet: ["insects"],
       size: "small",
@@ -52,7 +65,7 @@ export default function App() {
     },
     {
       name: "snake",
-      category: "reptile",
+      category: ["reptile"],
       habitat: "jungle",
       diet: ["meat"],
       size: "medium",
@@ -61,7 +74,7 @@ export default function App() {
     },
     {
       name: "dragonfly",
-      category: "insect",
+      category: ["insect"],
       habitat: "forest",
       diet: ["insects"],
       size: "tiny",
@@ -80,7 +93,11 @@ export default function App() {
 
   const filtered = animals.filter(a => {
     const matchHab = !habitat || a.habitat === habitat;
-    const matchCat = !category || a.category === category;
+    const matchCat =
+      !category ||
+      (Array.isArray(a.category)
+        ? a.category.includes(category)
+        : a.category === category);
     const matchDiet =
       selectedFoods.length === 0 ||
       a.diet.some(d => selectedFoods.includes(d));
@@ -123,7 +140,7 @@ export default function App() {
           boxShadow: "0 6px 16px rgba(200,200,255,0.3)"
         }}
       >
-        {/* habitat */}
+        {/* filters */}
         <div style={{ marginBottom: "25px" }}>
           <label style={{ color: "#7c6aff" }}>filter by habitat: </label>
           <select
@@ -138,13 +155,13 @@ export default function App() {
             }}
           >
             <option value="">all</option>
+            <option value="home">home</option>
             <option value="jungle">jungle</option>
             <option value="polar">polar</option>
             <option value="forest">forest</option>
           </select>
         </div>
 
-        {/* category */}
         <div style={{ marginBottom: "25px" }}>
           <label style={{ color: "#7c6aff" }}>filter by category: </label>
           <select
@@ -164,10 +181,10 @@ export default function App() {
             <option value="reptile">reptile</option>
             <option value="amphibian">amphibian</option>
             <option value="insect">insect</option>
+            <option value="pet">pet</option>
           </select>
         </div>
 
-        {/* diet */}
         <div style={{ marginBottom: "25px" }}>
           <p style={{ marginBottom: "8px", color: "#7c6aff" }}>
             what does your animal eat?
@@ -201,31 +218,90 @@ export default function App() {
                 overflow: "hidden",
                 backgroundColor: "#fffaff",
                 boxShadow: "0 2px 8px rgba(180,160,255,0.15)",
-                transition: "transform 0.2s ease"
+                transition: "transform 0.2s ease",
+                position: "relative"
               }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = "scale(1.04)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = "scale(1)";
-              }}
+              onMouseEnter={e =>
+                (e.currentTarget.style.transform = "scale(1.04)")
+              }
+              onMouseLeave={e =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
             >
-              <img
-                src={a.image}
-                alt={a.name}
-                style={{
-                  width: "100%",
-                  height: "200px",
-                  objectFit: "cover",
-                  objectPosition:
-                    a.name === "tiger"
-                      ? "center 40%"
-                      : a.name === "penguin"
-                      ? "center 30%"
-                      : "center",
-                  borderBottom: "1px solid #f0e9ff"
-                }}
-              />
+              {a.images ? (
+                <div style={{ position: "relative" }}>
+                  <img
+                    src={a.images[puppyIndex]}
+                    alt={a.name}
+                    style={{
+                      width: "100%",
+                      height: "250px",
+                      objectFit: "cover",
+                      objectPosition: a.objectPosition || "center",
+                      borderBottom: "1px solid #f0e9ff",
+                      transition: "opacity 0.4s ease"
+                    }}
+                  />
+                  <button
+                    onClick={handlePrev}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "8px",
+                      transform: "translateY(-50%)",
+                      background: "rgba(255,255,255,0.7)",
+                      border: "none",
+                      borderRadius: "50%",
+                      width: "28px",
+                      height: "28px",
+                      cursor: "pointer",
+                      color: "#7c6aff",
+                      fontSize: "16px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    ←
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      right: "8px",
+                      transform: "translateY(-50%)",
+                      background: "rgba(255,255,255,0.7)",
+                      border: "none",
+                      borderRadius: "50%",
+                      width: "28px",
+                      height: "28px",
+                      cursor: "pointer",
+                      color: "#7c6aff",
+                      fontSize: "16px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    →
+                  </button>
+                </div>
+              ) : (
+                <img
+                  src={a.image}
+                  alt={a.name}
+                  style={{
+                    width: "100%",
+                    height: "260px",
+                    objectFit: "cover",
+                    objectPosition:
+                      a.objectPosition ||
+                      (a.name === "tiger"
+                        ? "center 40%"
+                        : a.name === "penguin"
+                        ? "center 30%"
+                        : "center"),
+                    borderBottom: "1px solid #f0e9ff"
+                  }}
+                />
+              )}
               <div style={{ padding: "12px 16px" }}>
                 <h3
                   style={{
@@ -237,13 +313,16 @@ export default function App() {
                 >
                   {a.name}
                 </h3>
-                <p style={{ margin: "0", fontSize: "0.9rem" }}>
-                  category: {a.category}
+                <p style={{ margin: 0, fontSize: "0.9rem" }}>
+                  category:{" "}
+                  {Array.isArray(a.category)
+                    ? a.category.join(", ")
+                    : a.category}
                 </p>
-                <p style={{ margin: "0", fontSize: "0.9rem" }}>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}>
                   habitat: {a.habitat}
                 </p>
-                <p style={{ margin: "0", fontSize: "0.9rem" }}>
+                <p style={{ margin: 0, fontSize: "0.9rem" }}>
                   eats: {a.diet.join(", ")}
                 </p>
               </div>
