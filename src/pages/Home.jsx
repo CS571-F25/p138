@@ -68,7 +68,7 @@ export default function Home() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 250px",
+            gridTemplateColumns: "1fr 280px",
             gap: "20px",
             alignItems: "start",
             marginBottom: "30px"
