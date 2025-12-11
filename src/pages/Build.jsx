@@ -616,8 +616,8 @@ export default function Build() {
                 textAlign: "right"
               }}
             >
-              backgrounds, ears, tails and extras pngs from huaban.com;
-              eye and mouth stickers are my own drawings.
+              backgrounds, ears, and extras pngs from huaban.com;
+              eye, tails, and mouth stickers are my own drawings.
             </p>
           </div>
         </div>

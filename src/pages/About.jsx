@@ -121,7 +121,7 @@ export default function About() {
         </h2>
 
         <p style={{ fontSize: "1.05rem" }}>
-          butterflywings.png, batwings.png, angelwings.png, devilwings.png, and halo.png were sourced from huaban.com.
+          butterflywings.png, batwings.png, angelwings.png, devilwings.png, and halo.png as well as the special backgrounds were sourced from huaban.com.
         </p>
       </div>
     </div>
