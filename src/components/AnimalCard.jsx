@@ -39,7 +39,7 @@ export default function AnimalCard({
     }
 
     // no explicit image: this card will use AnimalImage which,
-    // in your setup, fetches from wikipedia
+    // in my setup, fetches from wikipedia
     if (!a.image || a.image.trim() === "") {
       return { label: "wikipedia", href: null, isWiki: true };
     }
