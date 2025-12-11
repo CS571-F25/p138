@@ -33,9 +33,10 @@ export default function About() {
 
         {/* project description */}
         <p style={{ fontSize: "1.05rem", marginBottom: "20px" }}>
-          this site displays animal information with filtering options for
-          habitat, category, and diet. each animal has its own card with an
-          image and basic traits.
+          this site is a small pastel animal encyclopedia with searchable cards,
+          trait filters, and quick facts pulled in from wikipedia. each animal
+          card shows an image, basic traits, and a short summary so you can
+          explore different species at a glance.
         </p>
 
         {/* features section header */}
@@ -51,10 +52,20 @@ export default function About() {
         </h2>
 
         {/* features description */}
+        <p style={{ fontSize: "1.05rem", marginBottom: "14px" }}>
+          the home page includes a search bar, a multi-section filter panel
+          (habitat, category, diet, patterns, textures, and colours), and a
+          paginated grid of animals. you can favourite animals with the heart
+          button, see them in a floating favourites pill, and open a detail
+          modal for a cleaner view of their traits and wiki blurb.
+        </p>
+
         <p style={{ fontSize: "1.05rem", marginBottom: "20px" }}>
-          current features include a searchable grid of animals, a filtering
-          panel, and image handling for different species. additional
-          components and layouts are being added over time.
+          there is also a draggable comparison drawer to highlight similarities
+          and differences between two animals, plus an upload panel that lets
+          you drop in your own animal photo for easy referencing. a separate
+          “build your own animal” page lets you play with simple customisation
+          controls for animal generation.
         </p>
 
         {/* tools section header */}
@@ -71,8 +82,11 @@ export default function About() {
 
         {/* tools and technologies used */}
         <p style={{ fontSize: "1.05rem", marginBottom: "20px" }}>
-          built using react, react router, react bootstrap, and vite. deployment
-          is handled through github pages.
+          built using react with react router for page navigation and react
+          bootstrap for the top navigation bar. the grid, filters, favourites,
+          comparison drawer, upload panel, and wikipedia integrations are all
+          custom components. the app is bundled with vite and deployed through
+          github pages.
         </p>
 
         {/* upcoming features section header */}
@@ -88,9 +102,26 @@ export default function About() {
         </h2>
 
         {/* future development plans */}
+        <p style={{ fontSize: "1.05rem", marginBottom: "28px" }}>
+          future additions may include more animals and habitats, extra traits
+          for filtering, better mobile layout tweaks, and more handdrawn assets
+          on the build page so custom animals can be more unique.
+        </p>
+
+        {/* attribution section */}
+        <h2
+          style={{
+            fontSize: "1.4rem",
+            color: "#7c6aff",
+            textTransform: "lowercase",
+            marginBottom: "12px"
+          }}
+        >
+          asset credits
+        </h2>
+
         <p style={{ fontSize: "1.05rem" }}>
-          future additions include expanded filtering options, additional
-          species, and a build-your-own-animal page.
+          butterflywings.png, batwings.png, angelwings.png, devilwings.png, and halo.png were sourced from huaban.com.
         </p>
       </div>
     </div>

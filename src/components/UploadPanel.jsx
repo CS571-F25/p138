@@ -1,15 +1,12 @@
 import { useState } from "react";
 
 export default function UploadPanel() {
-  // state for storing uploaded image preview url
   const [preview, setPreview] = useState(null);
 
-  // handles file upload and creates preview url
   function handleUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPreview(url);
+    setPreview(URL.createObjectURL(file));
   }
 
   return (
@@ -24,12 +21,10 @@ export default function UploadPanel() {
         width: "100%"
       }}
     >
-      {/* upload panel header */}
       <p style={{ color: "#7c6aff", marginBottom: "8px" }}>
         upload an animal photo
       </p>
 
-      {/* file input for image upload */}
       <input
         type="file"
         accept="image/*"
@@ -43,26 +38,25 @@ export default function UploadPanel() {
         }}
       />
 
-      {/* image preview container */}
       {preview && (
         <div
           style={{
             marginTop: "12px",
             width: "100%",
-            aspectRatio: "4 / 5",
             borderRadius: "12px",
             overflow: "hidden",
             border: "2px solid #e8ddff",
             background: "#f9f6ff"
           }}
         >
-          {/* preview image display */}
           <img
             src={preview}
+            alt="uploaded animal"
             style={{
               width: "100%",
-              height: "100%",
-              objectFit: "cover"
+              height: "auto",      // ← auto height!
+              display: "block",
+              objectFit: "contain" // ← ensures full image visible
             }}
           />
         </div>

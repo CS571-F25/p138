@@ -7,13 +7,16 @@ import Build from "./pages/Build";
 
 export default function App() {
   return (
-    <Router basename="/p138">
-      <NavbarTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/build" element={<Build />} />
-      </Routes>
-    </Router>
+    <div style={{ fontSize: "1.08rem" }}>
+      <Router basename="/p138">
+        <NavbarTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/build" element={<Build />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
+  
