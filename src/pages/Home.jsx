@@ -3,7 +3,6 @@ import FilterPanel from "../components/FilterPanel";
 import UploadPanel from "../components/UploadPanel";
 import AnimalGrid from "../components/AnimalGrid";
 import FavouritesPanel from "../components/FavouritesPanel";
-import AnimalModal from "../components/AnimalModal";
 import SearchBar from "../components/SearchBar";
 
 const FAV_KEY = "p138-favourites";
@@ -47,11 +46,11 @@ export default function Home() {
     setFavourites([]);
   }
 
-  // modal: we just track the animal NAME here
-  const [modalName, setModalName] = useState(null);
+  // modal: track the ANIMAL NAME, AnimalGrid will look up the object
+  const [modalAnimalName, setModalAnimalName] = useState(null);
 
   function openAnimal(name) {
-    setModalName(name);
+    setModalAnimalName(name);
   }
 
   // upload panel scroll position (same slide-up behaviour as favourites)
@@ -137,14 +136,15 @@ export default function Home() {
           />
         </div>
 
-        {/* floating favourites pill (right side, handled by its own component) */}
+        {/* floating favourites pill */}
         <FavouritesPanel
           favourites={favourites}
           onClear={clearFavourites}
           onSelect={openAnimal}
+          onRemove={toggleFavourite}
         />
 
-        {/* grid: cards can also open the same modal by name */}
+        {/* grid: cards + modal handled inside AnimalGrid */}
         <AnimalGrid
           habitat={habitat}
           category={category}
@@ -156,7 +156,8 @@ export default function Home() {
           setPuppyIndex={setPuppyIndex}
           favourites={favourites}
           toggleFavourite={toggleFavourite}
-          onOpen={openAnimal}
+          modalAnimalName={modalAnimalName}
+          setModalAnimalName={setModalAnimalName}
           query={query}
         />
       </div>
@@ -174,9 +175,6 @@ export default function Home() {
       >
         <UploadPanel />
       </div>
-
-      {/* modal: AnimalModal is responsible for looking the animal up by name (no-op right now if name not wired) */}
-      <AnimalModal name={modalName} onClose={() => setModalName(null)} />
     </div>
   );
 }
