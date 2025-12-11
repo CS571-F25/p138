@@ -9,7 +9,9 @@ export default function AnimalCard({
   puppyIndex,
   setPuppyIndex,
   isFavourite,
-  toggleFavourite
+  toggleFavourite,
+  isCompared,
+  onToggleCompare
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -55,6 +57,13 @@ export default function AnimalCard({
   }
 
   const credit = getImageCredit();
+
+  function handleCompareClick(e) {
+    e.stopPropagation();
+    if (onToggleCompare) {
+      onToggleCompare();
+    }
+  }
 
   return (
     <div
@@ -199,6 +208,35 @@ export default function AnimalCard({
         <p style={{ margin: 0, fontSize: "1rem" }}>
           eats: {a.diet.join(", ")}
         </p>
+
+        {onToggleCompare && (
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "flex-end"
+            }}
+          >
+            <button
+              type="button"
+              onClick={handleCompareClick}
+              aria-pressed={!!isCompared}
+              style={{
+                border: "none",
+                borderRadius: "999px",
+                padding: "4px 10px",
+                fontSize: "0.8rem",
+                cursor: "pointer",
+                backgroundColor: isCompared ? "#ffd6e6" : "#e6ddff",
+                color: isCompared ? "#b3395a" : "#5645a8",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+                textTransform: "lowercase"
+              }}
+            >
+              {isCompared ? "in compare" : "compare"}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* expanded details section when card is clicked */}
